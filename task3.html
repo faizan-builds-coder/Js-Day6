@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 3 - Fetch API</title>
+</head>
+<body>
+  <h2>Fetch API Example</h2>
+  <p id="output">Loading...</p>
+
+  <script>
+    // fetch() sends a request to a server and returns a Promise
+    fetch("https://jsonplaceholder.typicode.com/users/1")
+      .then((response) => response.json())     // Convert response into JSON
+      .then((data) => {
+        console.log(data);
+        document.getElementById("output").innerText =
+          `Name: ${data.name} | Email: ${data.email} | City: ${data.address.city}`;
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+        document.getElementById("output").innerText = "Error: " + error;
+      });
+  </script>
+</body>
+</html>

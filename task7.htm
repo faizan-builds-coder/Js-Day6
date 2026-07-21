@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 7 - Weather App (No API Key Needed)</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 30px; }
+    input { padding: 8px; margin: 6px; width: 250px; }
+    button { padding: 8px 16px; cursor: pointer; }
+    #weatherOutput { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Weather App</h2>
+
+  <input type="text" id="cityInput" placeholder="Enter city name" value="Lahore">
+  <br>
+  <button onclick="getWeather()">Get Weather</button>
+
+  <div id="weatherOutput">Result will appear here...</div>
+
+  <script>
+    async function getWeather() {
+      const city = document.getElementById("cityInput").value.trim();
+      const outputDiv = document.getElementById("weatherOutput");
+
+      if (!city) {
+        outputDiv.innerText = "Please enter a city name.";
+        return;
+      }
+
+      outputDiv.innerText = "Loading...";
+
+      try {
+        // Step 1: City ka naam se latitude/longitude nikalna (Geocoding API)
+        let geoResponse = await fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
+        );
+        let geoData = await geoResponse.json();
+
+        if (!geoData.results || geoData.results.length === 0) {
+          throw new Error("City not found. Check spelling and try again.");
+        }
+
+        let { latitude, longitude, name, country } = geoData.results[0];
+
+        // Step 2: Coordinates se weather data lena
+        let weatherResponse = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+        );
+        let weatherData = await weatherResponse.json();
+
+        let { temperature, windspeed } = weatherData.current_weather;
+
+        outputDiv.innerHTML = `
+          <strong>City:</strong> ${name}, ${country}<br>
+          <strong>Temperature:</strong> ${temperature}°C<br>
+          <strong>Wind Speed:</strong> ${windspeed} km/h
+        `;
+
+      } catch (error) {
+        console.log("Error:", error.message);
+        outputDiv.innerText = "Error: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 1 - Template Literals</title>
+</head>
+<body>
+  <h2>Template Literals Practice</h2>
+  <p id="output1"></p>
+  <p id="output2"></p>
+
+  <script>
+    // Template literals allow embedding variables directly inside strings using ${}
+    let userName = "Ali";
+    let userAge = 20;
+    let userCity = "Lahore";
+
+    let sentence1 = `My name is ${userName}, I am ${userAge} years old, and I live in ${userCity}.`;
+    console.log(sentence1);
+    document.getElementById("output1").innerText = sentence1;
+
+    // Expressions can also be used inside template literals
+    let sentence2 = `Next year I will be ${userAge + 1} years old.`;
+    console.log(sentence2);
+    document.getElementById("output2").innerText = sentence2;
+  </script>
+</body>
+</html>

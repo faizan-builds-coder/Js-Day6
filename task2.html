@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 2 - Destructuring</title>
+</head>
+<body>
+  <h2>Array and Object Destructuring</h2>
+  <p id="arrayOutput"></p>
+  <p id="objectOutput"></p>
+
+  <script>
+    // Array Destructuring: extract values from an array into variables
+    let colors = ["Red", "Green", "Blue"];
+    let [firstColor, secondColor, thirdColor] = colors;
+    console.log(firstColor, secondColor, thirdColor);
+    document.getElementById("arrayOutput").innerText =
+      `Colors: ${firstColor}, ${secondColor}, ${thirdColor}`;
+
+    // Object Destructuring: extract properties from an object into variables
+    let student = { rollNo: 101, studentName: "Sara", marks: 85 };
+    let { rollNo, studentName, marks } = student;
+    console.log(rollNo, studentName, marks);
+    document.getElementById("objectOutput").innerText =
+      `Roll No: ${rollNo}, Name: ${studentName}, Marks: ${marks}`;
+  </script>
+</body>
+</html>
